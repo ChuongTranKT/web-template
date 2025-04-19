@@ -1,15 +1,22 @@
 import axios from "axios"
 
 // Tạo instance Axios
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api", // Base URL của API
+
+const axiosInstance = axios.create({
+  baseURL:
+    process.env.NEXT_PUBLIC_API_URL ||
+    // 'http://192.168.2.28:4004/api/v1' ||
+    // 'http://192.168.1.5:4004/api/v1' ||
+    "http://192.168.102.72:4004/api/v1", // Base URL của API
+  // baseURL: 'http://192.168.1.142:4003/api/v1', // Base URL của API
+
   timeout: 10000, // Thời gian chờ request
 })
 
 // Request Interceptor: Thêm token vào header nếu cần
-api.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("accessToken") // Lấy token từ localStorage
+    const token = localStorage.getItem("access_token") // Lấy token từ localStorage
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -21,7 +28,7 @@ api.interceptors.request.use(
 )
 
 // Response Interceptor: Xử lý lỗi hoặc refresh token
-api.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response && error.response.status === 401) {
@@ -33,4 +40,4 @@ api.interceptors.response.use(
   }
 )
 
-export default api
+export default axiosInstance

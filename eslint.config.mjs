@@ -36,7 +36,7 @@ export default [
       tailwindcss: tailwindcssPlugin,
     },
     rules: {
-      "prettier/prettier": ["error", { singleQuote: false, semi: false }], // Cho phép dấu nháy kép
+      "prettier/prettier": ["off"], // Cho phép dấu nháy kép
       "react/react-in-jsx-scope": "off", // Không cần import React trong Next.js
       "jsx-a11y/anchor-is-valid": "off", // Bỏ qua lỗi liên quan đến thẻ <Link> của Next.js
       "@typescript-eslint/explicit-module-boundary-types": "off", // Không bắt buộc khai báo kiểu trả về
